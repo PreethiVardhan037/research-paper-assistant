@@ -1,0 +1,43 @@
+import os
+
+AZURE_STORAGE_CONNECTION_STRING = os.getenv(
+    "AZURE_STORAGE_CONNECTION_STRING"
+)
+
+BLOB_CONTAINER_NAME = os.getenv(
+    "BLOB_CONTAINER_NAME",
+    "papers"
+)
+
+DOCUMENT_INTELLIGENCE_ENDPOINT = os.getenv(
+    "DOCUMENT_INTELLIGENCE_ENDPOINT"
+)
+
+DOCUMENT_INTELLIGENCE_KEY = os.getenv(
+    "DOCUMENT_INTELLIGENCE_KEY"
+)
+
+SEARCH_ENDPOINT = os.getenv(
+    "SEARCH_ENDPOINT"
+)
+
+SEARCH_KEY = os.getenv(
+    "SEARCH_KEY"
+)
+
+SEARCH_INDEX = os.getenv(
+    "SEARCH_INDEX",
+    "research-papers"
+)
+
+AZURE_OPENAI_ENDPOINT = os.getenv(
+    "AZURE_OPENAI_ENDPOINT"
+)
+
+AZURE_OPENAI_KEY = os.getenv(
+    "AZURE_OPENAI_KEY"
+)
+
+AZURE_OPENAI_DEPLOYMENT = os.getenv(
+    "AZURE_OPENAI_DEPLOYMENT"
+)
