@@ -7,6 +7,77 @@ app = func.FunctionApp()
 
 @app.route(route="upload", auth_level=func.AuthLevel.ANONYMOUS)
 def upload(req: func.HttpRequest) -> func.HttpResponse:
+
+    logging.info("Received upload request")
+
+    try:
+
+        file = req.files.get("file")
+
+        if file is None:
+
+            return func.HttpResponse(
+                json.dumps({
+                    "success": False,
+                    "message": "No PDF uploaded."
+                }),
+                mimetype="application/json",
+                status_code=400
+            )
+
+        if not file.filename.lower().endswith(".pdf"):
+
+            return func.HttpResponse(
+                json.dumps({
+                    "success": False,
+                    "message": "Only PDF files are allowed."
+                }),
+                mimetype="application/json",
+                status_code=400
+            )
+
+        pdf_bytes = file.read()
+
+        logging.info(f"Filename : {file.filename}")
+        logging.info(f"Size : {len(pdf_bytes)} bytes")
+
+        return func.HttpResponse(
+
+            json.dumps({
+
+                "success": True,
+
+                "filename": file.filename,
+
+                "size": len(pdf_bytes)
+
+            }),
+
+            mimetype="application/json",
+
+            status_code=200
+
+        )
+
+    except Exception as e:
+
+        logging.exception(e)
+
+        return func.HttpResponse(
+
+            json.dumps({
+
+                "success": False,
+
+                "message": str(e)
+
+            }),
+
+            mimetype="application/json",
+
+            status_code=500
+
+        )
     logging.info('Python HTTP trigger function processed a request.')
 
     name = req.params.get('name')

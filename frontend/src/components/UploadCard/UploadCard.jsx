@@ -1,14 +1,100 @@
 import "./UploadCard.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { uploadPaper } from "../../services/api";
 
-export default function UploadCard(){
+export default function UploadCard() {
 
-    return(
+    const inputRef = useRef(null);
+
+    const [file, setFile] = useState(null);
+
+    const [loading, setLoading] = useState(false);
+
+    const [message, setMessage] = useState("");
+
+    function handleFileSelect(event) {
+
+        if (!event.target.files.length) return;
+
+        setFile(event.target.files[0]);
+
+        setMessage("");
+
+    }
+
+    function handleDrop(event) {
+
+        event.preventDefault();
+
+        if (!event.dataTransfer.files.length) return;
+
+        const droppedFile = event.dataTransfer.files[0];
+
+        if (droppedFile.type !== "application/pdf") {
+
+            setMessage("Please upload a PDF file.");
+
+            return;
+
+        }
+
+        setFile(droppedFile);
+
+        setMessage("");
+
+    }
+
+    function handleDragOver(event) {
+
+        event.preventDefault();
+
+    }
+
+    async function handleUpload() {
+
+        if (!file) return;
+
+        try {
+
+            setLoading(true);
+
+            setMessage("");
+
+            const response = await uploadPaper(file);
+
+            setMessage(
+
+                `Uploaded successfully: ${response.filename} (${response.size} bytes)`
+
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            setMessage("Upload failed.");
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+    return (
 
         <section className="upload-card">
 
             <h1>
+
                 Understand Research Papers Faster
+
             </h1>
 
             <p>
@@ -18,7 +104,17 @@ export default function UploadCard(){
 
             </p>
 
-            <label className="upload-box">
+            <div
+
+                className="upload-box"
+
+                onDrop={handleDrop}
+
+                onDragOver={handleDragOver}
+
+                onClick={() => inputRef.current.click()}
+
+            >
 
                 <FaCloudUploadAlt className="upload-icon"/>
 
@@ -27,12 +123,70 @@ export default function UploadCard(){
                 <span>or click to browse</span>
 
                 <input
-                    type="file"
-                    accept=".pdf"
+
+                    ref={inputRef}
+
                     hidden
+
+                    type="file"
+
+                    accept=".pdf"
+
+                    onChange={handleFileSelect}
+
                 />
 
-            </label>
+            </div>
+
+            {
+
+                file &&
+
+                <div className="selected-file">
+
+                    📄 {file.name}
+
+                </div>
+
+            }
+
+            <button
+
+                className="upload-btn"
+
+                disabled={!file || loading}
+
+                onClick={handleUpload}
+
+            >
+
+                {
+
+                    loading
+
+                    ?
+
+                    "Uploading..."
+
+                    :
+
+                    "Upload Paper"
+
+                }
+
+            </button>
+
+            {
+
+                message &&
+
+                <p className="upload-message">
+
+                    {message}
+
+                </p>
+
+            }
 
         </section>
 
