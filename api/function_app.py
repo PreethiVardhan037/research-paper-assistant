@@ -6,7 +6,9 @@ from routes.ask import ask
 from routes.quiz import quiz
 from routes.sections import sections
 
+
 app = func.FunctionApp()
+
 
 app.route(
     route="upload",
@@ -32,3 +34,4 @@ app.route(
     route="sections",
     auth_level=func.AuthLevel.ANONYMOUS
 )(sections)
+
