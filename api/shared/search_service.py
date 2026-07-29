@@ -128,3 +128,24 @@ def search_similar_chunks(question, top_k=3):
     context = "\n\n".join(chunks)
 
     return context
+
+
+def get_all_chunks():
+    results = search_client.search(
+        search_text="*",
+        select=["content"],
+        top=100
+    )
+
+    chunks = []
+
+    for result in results:
+        chunks.append(result["content"])
+
+    context = "\n\n".join(chunks)
+
+    print("Number of chunks:", len(chunks))
+    print("Context length:", len(context))
+    print(context[:300])
+
+    return context

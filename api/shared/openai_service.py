@@ -1,5 +1,6 @@
 from openai import AzureOpenAI
 import os
+import json
 
 from shared.config import (
     AZURE_OPENAI_ENDPOINT,
@@ -46,6 +47,63 @@ def ask_gpt(context, question):
             }
         ],
         max_completion_tokens=500
+    )
+
+    return response.choices[0].message.content
+
+def summarize_paper(context):
+    response = client.chat.completions.create(
+        model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are a research paper assistant. Summarize the following document in exactly 5 concise bullet points."
+                )
+            },
+            {
+                "role": "user",
+                "content": context
+            }
+        ],
+        max_completion_tokens=1200
+    )
+
+    print(response)
+
+    print("Message:")
+    print(response.choices[0].message)
+
+    return response.choices[0].message.content
+
+def generate_quiz(context):
+    response = client.chat.completions.create(
+        model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "Generate exactly 5 multiple-choice questions "
+                    "from the given document.\n\n"
+                    "Return ONLY valid JSON in this format:\n"
+                    "{\n"
+                    '  "questions":[\n'
+                    "    {\n"
+                    '      "question":"...",\n'
+                    '      "options":["...","...","...","..."],\n'
+                    '      "answer":"..."\n'
+                    "    }\n"
+                    "  ]\n"
+                    "}\n\n"
+                    "Do not include markdown or explanations."
+                )
+            },
+            {
+                "role": "user",
+                "content": context
+            }
+        ],
+        max_completion_tokens=1500
     )
 
     return response.choices[0].message.content
