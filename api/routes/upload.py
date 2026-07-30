@@ -1,11 +1,16 @@
 import json
 import logging
 import azure.functions as func
-from shared.blob_service import upload_pdf
+from shared.blob_service import upload_pdf,clear_container
 from shared.document_service import extract_text
 from shared.openai_service import create_embedding
 from shared.chunk_service import chunk_text
-from shared.search_service import create_index_if_not_exists,index_chunks,search_similar_chunks
+from shared.search_service import (
+    create_index_if_not_exists,
+    clear_index,
+    index_chunks,
+    search_similar_chunks
+)
 
 
 def upload(req: func.HttpRequest) -> func.HttpResponse:
@@ -37,6 +42,10 @@ def upload(req: func.HttpRequest) -> func.HttpResponse:
         pdf_bytes = file.read()
 
         create_index_if_not_exists()
+
+        clear_index()
+
+        clear_container()
         
         blob_url = upload_pdf(
             file.filename,

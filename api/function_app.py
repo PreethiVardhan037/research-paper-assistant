@@ -5,7 +5,7 @@ from routes.summary import summary
 from routes.ask import ask
 from routes.quiz import quiz
 from routes.sections import sections
-
+from routes.current_paper import current_paper
 
 app = func.FunctionApp()
 
@@ -34,4 +34,10 @@ app.route(
     route="sections",
     auth_level=func.AuthLevel.ANONYMOUS
 )(sections)
+
+app.route(
+    route="current-paper",
+    methods=["GET"],
+    auth_level=func.AuthLevel.ANONYMOUS
+)(current_paper)
 

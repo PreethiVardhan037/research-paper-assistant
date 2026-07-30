@@ -87,6 +87,31 @@ def create_index_if_not_exists():
 
     print("Index created successfully.")
 
+def clear_index():
+
+    results = search_client.search(
+        search_text="*",
+        select=["id"],
+        top=1000
+    )
+
+    documents = []
+
+    for result in results:
+
+        documents.append({
+            "id": result["id"]
+        })
+
+    if documents:
+
+        search_client.delete_documents(documents=documents)
+
+        print(f"Deleted {len(documents)} documents.")
+
+    else:
+
+        print("Index already empty.")
 
 def index_chunks(filename, chunks):
     documents = []
@@ -149,3 +174,4 @@ def get_all_chunks():
     print(context[:300])
 
     return context
+

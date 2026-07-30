@@ -22,3 +22,26 @@ def upload_pdf(file_name: str, file_bytes: bytes):
     )
 
     return blob_client.url
+
+def clear_container():
+
+    blobs = container_client.list_blobs()
+
+    count = 0
+
+    for blob in blobs:
+
+        container_client.delete_blob(blob.name)
+
+        count += 1
+
+    print(f"Deleted {count} blobs.")
+
+def get_current_paper_name():
+
+    blobs = list(container_client.list_blobs())
+
+    if not blobs:
+        return None
+
+    return blobs[0].name
