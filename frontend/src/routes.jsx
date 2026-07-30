@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
+import Workspace from "./pages/Workspace"
 
 export default function AppRoutes() {
     return (
@@ -8,6 +9,10 @@ export default function AppRoutes() {
             <Route
                 path="/"
                 element={<Home />}
+            />
+            <Route
+                path = "/workspace"
+                element={<Workspace/>}
             />
         </Routes>
     );

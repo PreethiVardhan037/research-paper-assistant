@@ -2,6 +2,9 @@ import "./UploadCard.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useRef, useState } from "react";
 import { uploadPaper } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function UploadCard() {
 
@@ -12,6 +15,8 @@ export default function UploadCard() {
     const [loading, setLoading] = useState(false);
 
     const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
 
     function handleFileSelect(event) {
 
@@ -61,14 +66,14 @@ export default function UploadCard() {
 
             setMessage("");
 
-            const response = await uploadPaper(file);
+            await uploadPaper(file);
 
-            setMessage(
+            setMessage("Paper uploaded successfully!");
 
-                `Uploaded successfully: ${response.filename} (${response.size} bytes)`
-
-            );
-
+            setTimeout(() => {
+                navigate("/workspace");
+            }, 1000);
+        
         }
 
         catch (error) {

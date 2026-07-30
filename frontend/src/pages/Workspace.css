@@ -1,0 +1,115 @@
+.workspace{
+
+    max-width:1100px;
+
+    margin:40px auto;
+
+    padding:20px;
+
+}
+
+.workspace h1{
+
+    margin-bottom:10px;
+
+}
+
+.workspace p{
+
+    color:#666;
+
+}
+
+.workspace-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(400px,1fr));
+
+    gap:30px;
+
+    margin-top:30px;
+
+}
+
+.workspace-header{
+
+    display:flex;
+
+    flex-direction: row;
+
+    gap:6rem;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.current-paper{
+    margin-top: 1.8rem;
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 1rem;
+}
+
+.current-paper-n-button{
+    margin-top: 1.8rem;
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 2.8rem;
+}
+
+.paper-label{
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    color: #6b7280;
+
+    margin-bottom: 0.35rem;
+}
+
+.paper-name{
+    background: white;
+
+    padding: 0.7rem 1.4rem;
+
+    border-radius: 10px;
+
+    border: 1px solid #dbe7ff;
+
+    font-size: 1rem;
+
+    font-weight: 500;
+}
+
+.back-btn{
+
+    background:var(--primary);
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 20px;
+
+    cursor:pointer;
+
+}
