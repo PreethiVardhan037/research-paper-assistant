@@ -178,24 +178,31 @@ AZURE_OPENAI_EMBEDDING_DEPLOYMENT=
 
 ### Home Page
 
-<img width="1470" height="834" alt="Screenshot 2026-07-31 at 6 26 32 PM" src="https://github.com/user-attachments/assets/4d2574f2-3e89-498d-b5d6-018560b80cc9" />
+![Home Page](screenshots/home1.png)
+
+![Home Page (scrolled down)](screenshots/home2.png)
 
 
 ### Upload Paper
 
-_Add screenshot_
+![Upload Paper](screenshots/upload.png)
 
+### Workspace
+
+![Workspace](screenshots/Worspace.png)
 ### Ask Questions
 
-_Add screenshot_
+![Ask Questions](screenshots/ask.png)
 
 ### Summary Generation
 
-_Add screenshot_
+![Summary Generation](screenshots/summary.png)
 
 ### Quiz Generation
 
-_Add screenshot_
+![Quiz Generation](screenshots/quiz1.png)
+
+![Quiz Generation & score](screenshots/quiz2.png)
 
 ---
 
