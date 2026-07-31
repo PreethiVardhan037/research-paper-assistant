@@ -38,16 +38,16 @@
 
     flex-direction: row;
 
-    gap:6rem;
-
     align-items:center;
+
+    justify-content: space-between;
 
     margin-bottom:30px;
 
 }
 
 .current-paper{
-    margin-top: 1.8rem;
+    /* margin-top: 1.8rem; */
 
     display: flex;
 
@@ -61,7 +61,7 @@
 }
 
 .current-paper-n-button{
-    margin-top: 1.8rem;
+    /* margin-top: 1.8rem; */
 
     display: flex;
 
@@ -71,7 +71,7 @@
 
     justify-content: center;
 
-    gap: 2.8rem;
+    gap: 2rem;
 }
 
 .paper-label{
@@ -81,7 +81,13 @@
 
     color: #6b7280;
 
-    margin-bottom: 0.35rem;
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    color: #6b7280;
+
+    margin: 0;
 }
 
 .paper-name{
@@ -112,4 +118,8 @@
 
     cursor:pointer;
 
+}
+
+.header-text{
+    flex: 1;
 }

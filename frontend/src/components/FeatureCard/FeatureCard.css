@@ -11,9 +11,9 @@
     box-shadow:0 8px 25px rgba(0,0,0,.06);
 }
 
-.feature-card:hover{
+.feature-card:shadow{
 
-    transform:translateY(-6px);
+    /* transform:translateY(-6px); */
 
     box-shadow:0 18px 35px rgba(0,0,0,.08);
 
