@@ -8,13 +8,15 @@ from shared.config import (
     AZURE_OPENAI_EMBEDDING_DEPLOYMENT
 )
 
-client = AzureOpenAI(
-    api_key=AZURE_OPENAI_KEY,
-    azure_endpoint=AZURE_OPENAI_ENDPOINT,
-    api_version="2024-12-01-preview"
-)
+def get_client():
+    return AzureOpenAI(
+        api_key=AZURE_OPENAI_KEY,
+        azure_endpoint=AZURE_OPENAI_ENDPOINT,
+        api_version="2024-12-01-preview"
+    )
 
 def create_embedding(text: str):
+    client = get_client()
     response = client.embeddings.create(
         model=AZURE_OPENAI_EMBEDDING_DEPLOYMENT,
         input=text
@@ -23,6 +25,7 @@ def create_embedding(text: str):
     return response.data[0].embedding
 
 def ask_gpt(context, question):
+    client = get_client()
     response = client.chat.completions.create(
         model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
         messages=[
@@ -52,6 +55,7 @@ def ask_gpt(context, question):
     return response.choices[0].message.content
 
 def summarize_paper(context):
+    client = get_client()
     response = client.chat.completions.create(
         model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
         messages=[
@@ -77,6 +81,7 @@ def summarize_paper(context):
     return response.choices[0].message.content
 
 def generate_quiz(context):
+    client = get_client()
     response = client.chat.completions.create(
         model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
         messages=[

@@ -13,24 +13,28 @@ from azure.search.documents.indexes.models import (
 )
 from .openai_service import create_embedding
 from azure.search.documents.models import VectorizedQuery
+from shared.config import SEARCH_ENDPOINT, SEARCH_KEY, SEARCH_INDEX
 import uuid
 import os
 
-endpoint = os.getenv("SEARCH_ENDPOINT")
-key = os.getenv("SEARCH_KEY")
+endpoint = SEARCH_ENDPOINT
+key = SEARCH_KEY
 
-search_client = SearchClient(
-    endpoint=endpoint,
-    index_name="research-papers",
-    credential=AzureKeyCredential(key)
-)
+def get_search_client():
+    return SearchClient(
+        endpoint=endpoint,
+        index_name="research-papers",
+        credential=AzureKeyCredential(key)
+    )
 
-index_client = SearchIndexClient(
+def get_index_client():
+    return SearchIndexClient(
     endpoint=endpoint,
     credential=AzureKeyCredential(key)
 )
 
 def create_index_if_not_exists():
+    index_client = get_index_client()
     index_name = "research-papers"
 
     indexes = [index.name for index in index_client.list_indexes()]
@@ -88,7 +92,7 @@ def create_index_if_not_exists():
     print("Index created successfully.")
 
 def clear_index():
-
+    search_client = get_search_client()
     results = search_client.search(
         search_text="*",
         select=["id"],
@@ -114,6 +118,7 @@ def clear_index():
         print("Index already empty.")
 
 def index_chunks(filename, chunks):
+    search_client = get_search_client()
     documents = []
 
     for chunk in chunks:
@@ -131,6 +136,7 @@ def index_chunks(filename, chunks):
     print(f"Uploaded {len(result)} documents")
 
 def search_similar_chunks(question, top_k=3):
+    search_client = get_search_client()
     embedding = create_embedding(question)
 
     vector_query = VectorizedQuery(
@@ -156,6 +162,7 @@ def search_similar_chunks(question, top_k=3):
 
 
 def get_all_chunks():
+    search_client = get_search_client()
     results = search_client.search(
         search_text="*",
         select=["content"],

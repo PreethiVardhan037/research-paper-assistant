@@ -6,12 +6,14 @@ from shared.config import (
     DOCUMENT_INTELLIGENCE_KEY
 )
 
-client = DocumentIntelligenceClient(
+def get_document_client():
+    return DocumentIntelligenceClient(
     endpoint=DOCUMENT_INTELLIGENCE_ENDPOINT,
     credential=AzureKeyCredential(DOCUMENT_INTELLIGENCE_KEY)
 )
 
 def extract_text(file_bytes: bytes) -> str:
+    client = get_document_client()
     poller = client.begin_analyze_document(
         "prebuilt-read",
         body=file_bytes
